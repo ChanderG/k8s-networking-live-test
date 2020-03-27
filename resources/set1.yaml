@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: set1-source
+spec:
+  containers:
+    - name: source
+      image: busybox:latest
+      command:
+        - tail
+        - -f
+        - /dev/null
+  nodeSelector:
+    kubernetes.io/hostname: SOURCE_NODE
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: set1-sink
+spec:
+  containers:
+    - name: sink
+      image: busybox:latest
+      command:
+        - tail
+        - -f
+        - /dev/null
+  nodeSelector:
+    kubernetes.io/hostname: SINK_NODE
+      
+    
