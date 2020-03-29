@@ -21,6 +21,11 @@ Each test consists of the following:
 6. A `nping` test from a source pod to a TCP sink service clusterIP directly. Data transfer with (YES kube-proxy and NO kube-dns).
 7. A `nping` test from a source pod to a TCP sink service with clusterIP. Data transfer with (YES kube-proxy and YES kube-dns).
 
+### Possible improvement to the tests
+
+1. Set 2 (2,3 above) can be run 2 modes of DNS settings. Normally (with the CoreDNS service ip) and direct (using the ip of a CoreDNS pod to avoid going via kube-proxy just for the DNS layer).
+2. Point 1 above maybe applicable to Set 3 (4-7) as well.
+
 ## Running the Tests
 
 Create a namespace for the tests:
