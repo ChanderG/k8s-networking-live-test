@@ -5,9 +5,10 @@ sink="$2"
 
 # other variables
 ns="k8s-networking-live-test"
-# needs to have nslookup installed out of the box, will not work otherwise
-# source_image="busybox:latest"
-source_image="nicolaka/netshoot:latest"
+# needs to have nslookup and bash installed out of the box, will not work otherwise
+# source_image="busybox:latest" # does not work
+# source_image="nicolaka/netshoot:latest" # works - alpine based
+source_image="amouat/network-utils:latest" # works - debian based
 
 echo "1. Cleaning out workdir..."
 rm -rf workdir/

@@ -12,7 +12,7 @@ Source and sink nodes can be set to the same value.
 
 In what follows, we will refer to a resource X running on source(sink) node as source(sink) X.
 
-Each test consists of the following:
+Each test consists of the following cases:
 1. A `ping` test from a source pod to a sink pod. Shows that pod networking is working correctly.
 2. A `nslookup` from a source pod for a sink service without a clusterIP. Test kube-dns resoltion of pod ips.
 3. A `nslookup` from a source pod for a sink service with a clusterIP. Test kube-dns resolution of service ips.

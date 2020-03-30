@@ -1,0 +1,113 @@
+# Source pod with nping installed
+apiVersion: v1
+kind: Pod
+metadata:
+  name: set3-source
+spec:
+  containers:
+    - name: source
+      image: SOURCE_IMAGE
+      command:
+        - tail
+        - -f
+        - /dev/null
+  nodeSelector:
+    kubernetes.io/hostname: SOURCE_NODE
+
+# Sink 1: a single busybox pod
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: set3-sink1
+spec:
+  containers:
+    - name: sink
+      image: busybox:latest
+      command:
+        - tail
+        - -f
+        - /dev/null
+  nodeSelector:
+    kubernetes.io/hostname: SINK_NODE
+
+# Sink 2: A service without a ClusterIP backed by 2 pods
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: set3-sink2-svc
+spec:
+  clusterIP: None
+  ports:
+    - name: "dummy"
+      port: 5201
+  selector:
+    type: set3-sink2-pods
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: set3-sink2-depl
+  labels:
+    type: set3-sink2-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      type: set3-sink2-pods
+  template:
+    metadata:
+      labels:
+        type: set3-sink2-pods
+    spec:
+      containers:
+        - name: sink
+          image: busybox:latest
+          command:
+            - tail
+            - -f
+            - /dev/null
+      nodeSelector:
+        kubernetes.io/hostname: SINK_NODE
+      
+# Sink 3: A service with ClusterIP backed by 2 pods
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: set3-sink3-svc
+spec:
+  ports:
+    - name: "dummy"
+      port: 5201
+  selector:
+    type: set3-sink3-pods
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: set3-sink3-depl
+  labels:
+    type: set3-sink3-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      type: set3-sink3-pods
+  template:
+    metadata:
+      labels:
+        type: set3-sink3-pods
+    spec:
+      containers:
+        - name: sink
+          image: busybox:latest
+          command:
+            - tail
+            - -f
+            - /dev/null
+      nodeSelector:
+        kubernetes.io/hostname: SINK_NODE
