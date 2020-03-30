@@ -9,4 +9,4 @@ do
     ((failure+=$?))
 done
 
-printf "SUCCEEDED - $((10-$failure))/10\n"
+printf "$((10-$failure))/10 tries pass\n"

@@ -22,5 +22,7 @@ kubectl -n $ns wait --for=condition=Ready -f ./workdir/set1.yaml
 echo "4. Obtain sink pod ip..."
 sink_ip=$(kubectl -n $ns describe pod/set1-sink | grep "^IP:" | awk '{print $2}')
 
-echo "5. Ping sink from source..."
+echo -e "\nCases:"
+
+echo "C1. Ping test. (Pod networking)"
 kubectl -n $ns exec -it set1-source -- ping -c 10 $sink_ip | tail -n2

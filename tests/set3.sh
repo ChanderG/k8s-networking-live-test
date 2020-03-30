@@ -31,14 +31,16 @@ sink3_svc_ip=$(kubectl -n $ns describe service/set3-sink3-svc | grep "^IP: " | a
 
 echo "sink-1 Pod IP: $sink1_ip"
 
-echo "5. nping sink-1 from source..."
+echo -e "\nCases:"
+
+echo "C4. Nping test. TCP. To pod. (no kube-proxy, no kube-dns)"
 kubectl -n $ns exec -it set3-source -- nping --tcp -p 5201 $sink1_ip | tail -n2 | head -n1
 
-echo "6. nping sink-2 from source..."
+echo "C5. Nping test. TCP. To service without cluster ip. (no kube-proxy, kube-dns)"
 kubectl -n $ns exec -it set3-source -- nping --tcp -p 5201 set3-sink2-svc | tail -n2 | head -n1
 
-echo "7. nping sink-3 IP from source..."
+echo "C6. Nping test. TCP. To service IP. (kube-proxy, no kube-dns)"
 kubectl -n $ns exec -it set3-source -- nping --tcp -p 5201 $sink3_svc_ip | tail -n2 | head -n1
 
-echo "8. nping sink-3 svc name from source..."
+echo "C7. Nping test. TCP. To service. (kube-proxy, kube-dns)"
 kubectl -n $ns exec -it set3-source -- nping --tcp -p 5201 set3-sink3-svc | tail -n2 | head -n1

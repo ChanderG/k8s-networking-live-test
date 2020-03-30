@@ -38,19 +38,22 @@ echo "Pod IP: $dns_pod_ip"
 echo "5. Copy the looper script into the source pod..."
 kubectl -n $ns cp ./helpers/looper.sh set2-source:/bin/looper.sh
 
-echo "6. Lookup sink-1 from source..."
-printf "Lookup with default DNS: "
+echo -e "\nCases:"
+
+echo "C2. Lookup test. (DNS to pod ips.) "
+
+printf "  with default DNS: "
 kubectl -n $ns exec -it set2-source -- /bin/looper.sh "nslookup set2-sink-svc1"
-printf "Lookup with DNS service IP: "
+printf "  with DNS service IP: "
 kubectl -n $ns exec -it set2-source -- /bin/looper.sh "nslookup set2-sink-svc1 $dns_svc_ip"
-printf "Lookup with DNS pod IP: "
+printf "  with DNS pod IP: "
 kubectl -n $ns exec -it set2-source -- /bin/looper.sh "nslookup set2-sink-svc1 $dns_pod_ip"
 
-echo "7. Lookup sink-2 from source..."
+echo "C3. Lookup test. (DNS to virtual ip.)"
 
-printf "Lookup with default DNS: "
+printf "  with default DNS: "
 kubectl -n $ns exec -it set2-source -- /bin/looper.sh "nslookup set2-sink-svc2"
-printf "Lookup with DNS service IP: "
+printf "  with DNS service IP: "
 kubectl -n $ns exec -it set2-source -- /bin/looper.sh "nslookup set2-sink-svc2 $dns_svc_ip"
-printf "Lookup with DNS pod IP: "
+printf "  with DNS pod IP: "
 kubectl -n $ns exec -it set2-source -- /bin/looper.sh "nslookup set2-sink-svc2 $dns_pod_ip"
