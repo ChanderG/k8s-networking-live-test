@@ -1,6 +1,10 @@
-# k8s-networking-live-test
+# k8s Networking Live Test
 
-Test connectivity within a k8s cluster via all networking elements
+Test networking connectivity within a k8s cluster. A single test that checks various combinations of pod networking, service networking (kube-proxy) and DNS resolution.
+
+Uses:
+1. Debugging networking issues by isolating faults in the components.
+2. Sanity check configuration changes in the networking components (like CoreDNS configuration or Pod networking CNI plugin changes).
 
 ## About the Tests
 
