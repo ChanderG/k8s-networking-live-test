@@ -21,11 +21,6 @@ Each test consists of the following cases:
 6. A `nping` test from a source pod to a TCP sink service clusterIP directly. Data transfer with (YES kube-proxy and NO kube-dns).
 7. A `nping` test from a source pod to a TCP sink service with clusterIP. Data transfer with (YES kube-proxy and YES kube-dns).
 
-### Possible improvement to the tests
-
-1. Set 2 (2,3 above) can be run 2 modes of DNS settings. Normally (with the CoreDNS service ip) and direct (using the ip of a CoreDNS pod to avoid going via kube-proxy just for the DNS layer).
-2. Point 1 above maybe applicable to Set 3 (4-7) as well.
-
 ## Running the Tests
 
 Create a namespace for the tests:
@@ -34,4 +29,8 @@ kubectl create namespace k8s-networking-live-test
 ```
 All test pods/services will be spawned within this namespace.
 
-
+To run the tests:
+```
+./run.sh <source node> <sink node>
+```
+The source and sink nodes should be specified using the names that comes up when running `kubectl get nodes`.

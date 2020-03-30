@@ -9,8 +9,8 @@ ns="k8s-networking-live-test"
 source_image="amouat/network-utils:latest" # debian based
 
 echo "1. Cleaning out workdir..."
-rm -rf workdir/
-mkdir workdir
+mkdir -p workdir
+rm workdir/set3.yaml
 
 echo "2. Parameterize resource definitions..."
 cp resources/set3.yaml workdir/

@@ -5,8 +5,8 @@ sink="$2"
 ns="k8s-networking-live-test"
 
 echo "1. Cleaning out workdir..."
-rm -rf workdir/
-mkdir workdir
+mkdir -p workdir
+rm workdir/set1.yaml
 
 echo "2. Parameterize resource definitions..."
 cp resources/set1.yaml workdir/
